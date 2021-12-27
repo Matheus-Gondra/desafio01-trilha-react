@@ -18,12 +18,15 @@ export function TaskList() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
     let newTask = [...tasks, { id: 0, title: "", isComplete: false }];
 
-    newTask.map((task, index) => {
-      newTask = [...tasks, { id: index, title: newTaskTitle, isComplete: false }];
-      setTasks(newTask);
-      setNewTaskTitle("");
-      return;
-    });
+    if (newTaskTitle !== "") {
+      newTask.map((task, index) => {
+        newTask = [...tasks, { id: index, title: newTaskTitle, isComplete: false }];
+        setTasks(newTask);
+        setNewTaskTitle("");
+        return;
+      });
+    }
+
 
 
     /* Solução do professor
@@ -46,7 +49,7 @@ export function TaskList() {
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
 
-    const newTasks = tasks.map(task => task.id === id ? {...task, isComplete: !task.isComplete} : task);
+    const newTasks = tasks.map(task => task.id === id ? { ...task, isComplete: !task.isComplete } : task);
 
     setTasks(newTasks);
   }
